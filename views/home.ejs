@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>Blogging App</title>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+        <div class="d-flex justify-content-center align-items-center" width="100%">
+            <div class="container text-center">
+                <h1 class=" text-center my-5">Blogs</h1>
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+
+                    <% blogs.forEach(blog=> { %>
+                        <div class="col">
+                            <div class="card col mb-5" style="width: 20rem; height: 20rem">
+                                <img src=<%=blog.coverImageURL %> lass="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%= blog.title %>
+                                    </h5>
+                                    <div class="d-flex align-items-end justify-content-center">
+                                        <a href="/blog/<%=blog._id%>" class="btn btn-primary">View Blog</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <% }) %>
+                </div>
+            </div>
+        </div>
+
+        <%- include('./partials/script') %>
+</body>
+
+</html>

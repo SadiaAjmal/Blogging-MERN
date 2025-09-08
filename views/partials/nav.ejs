@@ -1,0 +1,73 @@
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="#">Blogify</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
+                </li>
+
+                <% if (locals.user) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/blog/addnew">Add Blog</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                        <img
+                            src="<%= locals.user.profileImage || '/images/default.jpg' %>"
+                            alt="Profile Image" class="rounded-circle me-2"
+                            width="30px" height="30px" />
+                        <span>
+
+                            <%= locals.user.fullName || 'Guest' %>
+                        </span>
+
+                    </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="/user/logout">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <%} else {%>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user/signup">SignUp</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user/signin">Login</a>
+                        </li>
+                        <%}%>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<% if (locals.error) { %>
+    <div id="error-alert" class=" m-5">
+        <div class="alert alert-danger" role="alert">
+            <%= locals.error %>
+        </div>
+
+    </div>
+    <% } %>
+
+        <script>
+            // Wait for the DOM to load
+            document.addEventListener('DOMContentLoaded', function() {
+                const alertElement = document.getElementById('error-alert');
+                if (alertElement) {
+                    // Set a timeout to remove or hide the alert
+                    setTimeout(() => {
+                        alertElement.style.display = 'none';
+                    }, 3000); // 3000ms = 3 seconds
+                }
+            });
+        </script>

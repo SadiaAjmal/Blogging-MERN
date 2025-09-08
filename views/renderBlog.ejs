@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('./partials/head') %>
+        <title>View Blog</title>
+</head>
+
+<body>
+    <%- include('./partials/nav') %>
+        <h1 class=" text-center">Hey, View Blog here</h1>
+        <div class="container m-5">
+
+            <!-- Display Blog-->
+            <div class="container">
+
+                <h1>
+                    <%= blog.title %>
+                </h1>
+                <img src="/<%= blog.coverImageURL %>" width="500px" alt="Cover Image">
+
+                <p class="card-text mt-3">
+                    <%= blog.body %>
+                </p>
+            </div>
+
+            <!-- Display Blog writer-->
+
+            <div class="container mt-5">
+                <h3>Blog created By</h3>
+                <img src="/<%= blog.createdBy.profileImage %>" alt="..." width="60px" />
+
+                <b>
+                    <%= blog.createdBy.fullName %>
+                </b>
+            </div>
+
+            <!-- Display comments below the blog-->
+
+            <div class="container mt-5">
+                <h2>Comments (
+                    <%= comment.length%>)</h2>
+
+                <div class="mt-3">
+                    <% comment.forEach(comment => { %>
+                        <div>
+                            <img src="/<%= comment.createdBy.profileImage %>" alt="..." width="60px" />
+
+                            <%= comment.createdBy.fullName %>
+
+                                <pre><%= comment.content %></pre>
+                        </div>
+                        <%})%>
+                </div>
+
+                <!-- Write Comments -->
+
+                <%if(locals.user) {%>
+                    <form action="/blog/comment/<%= blog._id%>" method="post">
+                        <input type="text" id="content" name="content" class="form-control" placeholder="Enter your comment">
+                        <button class="btn btn-sm mt-3 btn-primary" type="submit">Add Comment</button>
+                    </form>
+
+
+
+                    <%} else {%>
+                        <p>You need to login to add comments.</p>
+                        <%}%>
+
+            </div>
+
+        </div>
+
+        <%- include('./partials/script') %>
+</body>
+
+</html>
